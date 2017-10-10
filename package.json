@@ -5,8 +5,7 @@
     "start": "meteor run",
     "lint": "node ./node_modules/eslint/bin/eslint.js .",
     "pretest": "npm run lint --silent",
-    "deploy": "DEPLOY_HOSTNAME=ap-southeast-2.galaxy.meteor.com meteor deploy acgn-stock.au.meteorapp.com --settings ./settings.json",
-    "postinstall": "opencollective postinstall"
+    "deploy": "DEPLOY_HOSTNAME=ap-southeast-2.galaxy.meteor.com meteor deploy acgn-stock.au.meteorapp.com --settings ./settings.json"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",

@@ -148,7 +148,7 @@ function doIntervalWork() {
     //檢查所有創立中且投資時間截止的公司是否成功創立
     checkFoundCompany();
     //當發薪時間到時，發給所有驗證通過的使用者薪水，並檢查賦稅、增加滯納罰金與強制繳稅
-    paySalaryAndCheckTax();
+    // paySalaryAndCheckTax();
     //隨機時間讓符合條件的公司釋出股票
     releaseStocksForHighPrice();
     releaseStocksForNoDeal();
@@ -374,7 +374,7 @@ function generateNewSeason() {
   const productCount = dbProducts.find({overdue: 0}).count();
   const companiesCount = dbCompanies.find({isSeal: false}).count();
   //本季度每個使用者可以得到多少推薦票
-  const vote = Math.floor(Math.log10(companiesCount) * 18);
+  const vote = Math.max(1, Math.floor(Math.log10(companiesCount) * 18));
   const votePrice = 3000;
   Meteor.users.update(
     {},
@@ -503,7 +503,7 @@ function giveBonusByStocksFromProfit() {
             }
           });
           //七天未動作者不分紅
-          if (userData.status && now - userData.status.lastLogin.date.getTime() <= 604800000) {
+          if (userData.status && userData.status.lastLogin && now - userData.status.lastLogin.date.getTime() <= 604800000) {
             canReceiveProfitStocks += directorData.stocks;
             canReceiveProfitDirectorList.push({
               userId: directorData.userId,

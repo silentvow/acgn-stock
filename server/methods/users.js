@@ -14,6 +14,19 @@ import { config } from '../../config';
 import { limitMethod, limitSubscription, limitGlobalMethod } from './rateLimit';
 import { debug } from '../debug';
 
+if (Meteor.users.find().count() < 1) {
+  for (let i = 1; i <= 30; i += 1) {
+    Accounts.createUser({
+      username: 'user' + i,
+      password: 'user' + i,
+      profile: {
+        name: 'user' + i,
+        validateType: 'PTT'
+      }
+    });
+  }
+}
+
 Meteor.methods({
   loginOrRegister({username, password, type, reset}) {
     debug.log('loginOrRegister', {username, password, type, reset});
